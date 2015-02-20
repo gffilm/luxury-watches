@@ -2,7 +2,6 @@
 
 include_once(APPPATH . 'controllers/base' . EXT);
 
-
 /**
  * This class handles the base controller
  * @overview
@@ -10,6 +9,8 @@ include_once(APPPATH . 'controllers/base' . EXT);
 class Start extends Base_Controller {
 
 	private $viewName = 'start';
+
+	private $requiresLogin = true;
 
 	private $viewData = array('test' => 'meow', 'test1' => 'ruff');
 
@@ -20,6 +21,8 @@ class Start extends Base_Controller {
 	 */
 	public function __construct() {
 		$this->setModelName($this->modelName);
+		$this->setViewName($this->viewName);
+		$this->setRequiresLogin($this->requiresLogin);
 		parent::__construct();
 	}
 

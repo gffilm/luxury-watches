@@ -25,15 +25,6 @@
 		 * @package autoload
 		 */
 
-		/**
-		 * Example: <code>
-		 *  $autoload['packages'] = array(APPPATH.'third_party', '/usr/local/shared');
-		 * </code>
-		 *
-		 * @var array $autoload['packages']
-		 */
-		$autoload['packages'] = array();
-
 
 		/**
 		 * Auto-load Libraries
@@ -56,7 +47,10 @@
 		 * $autoload['helper'] = array('url', 'file');
 		 */
 		$autoload['helper'] = array(
-			'watches'
+			'date',
+			'url',
+			'watches',
+			'uservalidator'
 		);
 
 
@@ -67,7 +61,8 @@
 		 */
 		$autoload['model'] = array(
 			'base',
-			'watches'
+			'watches',
+			'user'
 		);
 
 

@@ -28,7 +28,7 @@
 	 * something else. If you are using mod_rewrite to remove the page set this
 	 * variable so that it is blank.
 	 */
-	$config['index_page'] = 'index.php';
+	$config['index_page'] = '';
 
 
 	/**
@@ -199,7 +199,7 @@
 	 * If you use the Encryption class or the Session class you
 	 * MUST set an encryption key.  See the user guide for info.
 	 */
-	$config['encryption_key'] = '';
+	$config['encryption_key'] = 'Watches Application';
 
 
 	/**
