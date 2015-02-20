@@ -8,28 +8,36 @@ include_once(APPPATH . 'controllers/base' . EXT);
  */
 class Start extends Base_Controller {
 
-	private $viewName = 'start';
+	private $viewName = 'Start';
 
 	private $requiresLogin = true;
 
-	private $viewData = array('test' => 'meow', 'test1' => 'ruff');
+	private $viewData = array('class' => 'Start');
 
-	private $modelName = 'Watches';
+	private $modelName = 'Watch_Model';
 
 	/**
 	 * Constructor for the Start page
 	 */
 	public function __construct() {
-		$this->setModelName($this->modelName);
-		$this->setViewName($this->viewName);
-		$this->setRequiresLogin($this->requiresLogin);
 		parent::__construct();
 	}
 
 	/**
-	 * Starting point for the overall application.
+	 * Sets up values for inheritance
+	 * @param {Object} $data
 	 */
-	public function index() {
-		$this->load->view($this->viewName, $this->viewData);
-	}
+	public function inherit() {
+        $inheriters = $this->getInheriters();
+        foreach ($inheriters as $parameter) {
+            $this->setInheritance($parameter, $this->$parameter);
+        }
+    }
+
+    /**
+    * Displays the view
+    */
+    public function index() {
+        $this->load->view($this->viewName, $this->viewData);
+    }
 }

@@ -6,19 +6,20 @@ include_once(APPPATH . 'controllers/base' . EXT);
  * This class handles user access to the application
  * @overview
  */
-class UserAccess extends Base_Controller {
+class Watch extends Base_Controller {
 
 
-    private $viewName = 'User';
+    private $viewName = 'Watch';
 
     private $requiresLogin = false;
 
-    private $viewData = array('class' => 'User');
+    private $viewData = array('class' => 'Watch');
 
-    private $modelName = 'User_Model';
+    private $modelName = 'Watch_Model';
+
 
     /**
-     * Constructor for the UserAccess page
+     * Constructor for the Watches page
      */
     public function __construct() {
         parent::__construct();

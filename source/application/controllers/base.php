@@ -16,13 +16,13 @@ class Base_Controller extends CI_Controller {
 	 * The name of the view to load
 	 * @type {string}
 	 */
-	private $viewName = 'base';
+	private $viewName = 'Base';
 
 	/**
 	 * The name of the model to load
 	 * @type {string}
 	 */
-	private $modelName = 'Base';
+	private $modelName = 'Base_Model';
 
 	/*
 	 * The uservalidator
@@ -37,18 +37,27 @@ class Base_Controller extends CI_Controller {
 	 */
 	private $requiresLogin = false;
 
+
+	/**
+	 * Sets the functions and parametes for inherited values
+	 * @type {boolean}
+	 */
+	private static $inheriters = array('viewName', 'modelName', 'requiresLogin');
+
 	/**
 	 * Constructor for the Base controller
 	 */
 	public function __construct() {
 		parent::__construct();
 
+		// Initializes inheritance for the extended controller
+		$this->inherit();
+
 		// Load required helpers and libraries
 		$this->load->helper('form');
 		$this->load->helper('file');
 		$this->load->helper('html');
 		$this->load->library('session');
-
 
 		// Set if the user is logged in
 		$this->login();
@@ -57,12 +66,34 @@ class Base_Controller extends CI_Controller {
 		$this->model = new $this->modelName();
 	}
 
+	/**
+	 * Gets the inheriters needed for inheritance
+	 * @return {Object}
+	 */
+	public function getInheriters() {
+		return self::$inheriters;
+	}
+
+	/**
+	 * Initializes variables for inheritance
+	 */
+	public function inherit() {}
+
+
+	/**
+	 * Sets params from the extended class to this one
+	 * @param {string} $name of the parameter
+	 * @param {*} $value of the parameter
+	 */
+	public function setInheritance($name, $value) {
+		$this->$name = $value;
+	}
 
 	/**
 	 * Ensure user is logged in or redirect to the login page if required
 	 */
 	public function login() {
-		$this->userValidator = new UserValidator($this->session->all_userdata());
+		$this->userValidator = new User_Helper($this->session->all_userdata());
 
 		if ($this->requiresLogin && !$this->userValidator->isLoggedIn()) {
 			redirect('useraccess?return=' . current_url());
@@ -74,29 +105,5 @@ class Base_Controller extends CI_Controller {
 	 */
 	public function index() {
 		$this->load->view($this->viewName, $this->viewData);
-	}
-
-	/**
-	 * Sets the modelname
-	 * @param {string}
-	 */
-	public function setModelName($name) {
-		$this->modelName = $name;
-	}
-
-	/**
-	 * Sets the modelname
-	 * @param {string}
-	 */
-	public function setViewName($name) {
-		$this->viewName = $name;
-	}
-
-	/**
-	 * Set if we this page requires a login
-	 * @param {boolean}
-	 */
-	public function setRequiresLogin($required) {
-		$this->requiresLogin = $required;
 	}
 }

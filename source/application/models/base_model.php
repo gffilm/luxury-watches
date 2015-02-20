@@ -4,8 +4,7 @@
  * This class handles the base model for crud application
  * @overview
  */
-class Base extends CI_Model {
-
+class Base_Model extends CI_Model {
 
 	/*
 	 * The Data model
@@ -20,11 +19,10 @@ class Base extends CI_Model {
 	private $tableName = '';
 
 	/**
-	 * Constructor for the Third Party entries
+	 * Constructor for the entries
 	 */
 	public function __construct() {
 		parent::__construct();
-
 		$this->db = $this->load->database('appDb', true);
 	}
 
@@ -35,6 +33,14 @@ class Base extends CI_Model {
 	 */
 	public function getDataModel() {
 		return $this->dataModel;
+	}
+
+	/**
+	 * Sets the data model
+	 * @param {Object}
+	 */
+	public function setDataModel($model) {
+		$this->dataModel = $model;
 	}
 
 	/**
@@ -63,7 +69,7 @@ class Base extends CI_Model {
 	}
 
 	/**
-	 * Gets a Third Party entry by the name
+	 * Gets a entry by the name
 	 * @param {string} $id
 	 * @return {Array[Objects]}
 	 */
@@ -79,7 +85,7 @@ class Base extends CI_Model {
 	}
 
 	/**
-	 * Gets all the Third Party entries
+	 * Gets all the entries
 	 * @return {Object} the entriees
 	 */
 	public function getAll() {
@@ -98,10 +104,10 @@ class Base extends CI_Model {
 
 
 	/**
-	 * Deletes all Third Party entries
+	 * Deletes all entries
 	 */
 	public function deleteAll() {
-		$entries = $this->getAllThirdPartyResults();
+		$entries = $this->getAll();
 		foreach ($entries as $entry) {
 			$this->db->where('id', $entry->id);
 			$this->db->delete($this->tableName);
@@ -109,7 +115,7 @@ class Base extends CI_Model {
 	}
 
 	/**
-	 * Creates a Third Party entry
+	 * Creates a entry
 	 * @param {Array} $data
 	 * @return {string} $id
 	 */
@@ -177,7 +183,7 @@ class Base extends CI_Model {
 			foreach ($data as $key => $value) {
 				//var_dump($this->dataModel[$key]);
 				if (!isset($this->dataModel[$key])) {
-					$this->helper->addError('Update failed, this key does not exist in the database: ' . $key);
+					$this->addError('Update failed, this key does not exist in the database: ' . $key);
 					break;
 				}
 				$updatedInfo[$key] = $value;
@@ -189,27 +195,40 @@ class Base extends CI_Model {
 
 
 	/**
-	 * Drops the Third Party table
+	 * Drops the table
 	 */
 	public function dropTable() {
 		$sql = 'DROP TABLE IF EXISTS `' . $this->tableName . '`;';
 		$this->db->query($sql);
 	}
 
+
+	/*
+	 * Gets the table query
+	*/
+	private function getTableQuery() {
+		return 'CREATE TABLE IF NOT EXISTS `' . $this->tableName . '` (
+                `id` varchar(128) NOT NULL,
+                `creationDate` date DEFAULT NULL,
+                `modificationDate` date DEFAULT NULL,
+                `createdBy` varchar(128) DEFAULT NULL,
+                `modifiedBy` varchar(128) DEFAULT NULL,
+                `firstName` varchar(30) NOT NULL,
+                `lastName` varchar(30) NOT NULL,
+                `password` varchar(128) DEFAULT NULL,
+                `email` varchar(30) NOT NULL,
+                `phone` varchar(50) DEFAULT NULL,
+                `active` varchar(50) DEFAULT NULL,
+                `role` varchar(50) DEFAULT NULL,
+                `misc` text
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8';
+	}
+
 	/**
-	 * Creates the Third Party table
+	 * Creates the table
 	 */
 	public function createTable() {
-		$sql = 'CREATE TABLE IF NOT EXISTS `' . $this->tableName . '` (
-					`id` varchar(128) NOT NULL,
-					`creationDate` date DEFAULT NULL,
-					`modificationDate` date DEFAULT NULL,
-					`createdBy` varchar(128) DEFAULT NULL,
-					`modifiedBy` varchar(128) DEFAULT NULL,
-					`name` varchar(30) NOT NULL,
-					`info` text
-				) ENGINE=InnoDB DEFAULT CHARSET=utf8;';
-		$this->db->query($sql);
+		$this->db->query($this->getTableQuery());
 	}
 }
 

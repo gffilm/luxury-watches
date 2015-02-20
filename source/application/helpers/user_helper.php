@@ -1,6 +1,6 @@
 <?php
 
-class UserValidator {
+class User_Helper {
     
 
     /**
@@ -65,7 +65,7 @@ class UserValidator {
     */
     public function validate() {
         $this->id = $this->session['id'];
-        $this->model = new UserModel();
+        $this->model = new User_Model();
         $this->user = $this->model->read($this->id);
         $this->loggedIn = $this->isActive();        
         return $this->loggedIn;

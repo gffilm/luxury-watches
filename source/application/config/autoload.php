@@ -49,8 +49,8 @@
 		$autoload['helper'] = array(
 			'date',
 			'url',
-			'watches',
-			'uservalidator'
+			'watch',
+			'user'
 		);
 
 
@@ -60,9 +60,9 @@
 		 * $autoload['model'] = array('model1', 'model2');
 		 */
 		$autoload['model'] = array(
-			'base',
-			'watches',
-			'user'
+			'base_model',
+			'watch_model',
+			'user_model'
 		);
 
 
