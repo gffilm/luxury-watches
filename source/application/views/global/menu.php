@@ -17,20 +17,20 @@
         <div id="navMenu" style="display:inline;">
             <a href="./" title="">Home</a>
             <img src="<?php Resource::getInstance()->echoPath('images/nav-vert.png'); ?>" alt="Home">
-            <a href="./inventory.php" title="">Inventory</a>
+            <a href="./inventory" title="">Inventory</a>
             <img src="<?php Resource::getInstance()->echoPath('images/nav-vert.png'); ?>" alt="Inventory">
-            <a href="./sell.php" title="">Sell Us Your Watch</a>
+            <a href="./sell" title="">Sell Us Your Watch</a>
             <img src="<?php Resource::getInstance()->echoPath('images/nav-vert.png'); ?>" alt="Sell Us Your Watch">
-            <a href="./faq.php" title="">FAQ</a>
+            <a href="./faq" title="">FAQ</a>
             <img src="<?php Resource::getInstance()->echoPath('images/nav-vert.png'); ?>" alt="Frequently Asked Questions">
-            <a href="./testimonials.php" title="">Testimonials</a>
+            <a href="./testimonials" title="">Testimonials</a>
             <img src="<?php Resource::getInstance()->echoPath('images/nav-vert.png'); ?>" alt="Testimonials">
-            <a href="./services.php" title="">Services</a>
+            <a href="./services" title="">Services</a>
             <img src="<?php Resource::getInstance()->echoPath('images/nav-vert.png'); ?>" alt="Services">
-            <a href="./about.php" title="">About</a>
+            <a href="./about" title="">About</a>
             <img src="<?php Resource::getInstance()->echoPath('images/nav-vert.png'); ?>" alt="About Us">
-            <a href="./contact.php" title="">Contact</a>
-            <form method="post" action="search.php" style="display:inline;">
+            <a href="./contact." title="">Contact</a>
+            <form method="post" action="search" style="display:inline;">
                 <input id="searchbox" type="text" name="q" style="margin-left:15px;" />&nbsp;&nbsp;<input type="submit" value="go">
             </form>
         </div>

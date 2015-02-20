@@ -1,18 +1,20 @@
-<?php $this->load->view('partials/header'); ?>   
+<?php $this->load->view('global/header'); ?>   
 
         <div class="container">
           
-<?php $this->load->view('partials/menu'); ?>   
+<?php $this->load->view('global/menu'); ?>   
 
-
-        <div class="home-inventory">
-              <a href="inventory.php" title="" class="button inventory-button">Current Inventory</a>
-            </div>
-
-            <div class="guaranteed">
-                First Jewelry Source, LLC is one of the world's principal leaders in contemporary pre-owned, refurbished, vintage timepieces and jewelry pieces. Our focus is the purchase, restoration, and sale of fine timepieces.
-            </div>
+        <?php
+            switch ($this->uri->segment(2)):
+                case 'inventory':
+                    $this->load->view('partials/inventory');
+                    break;
+                default:
+                    $this->load->view('partials/home');
+                    break;
+            endswitch;
+            ?>
 
         <img src="<?php Resource::getInstance()->echoPath('images/specialize.jpg'); ?>" alt="Luxury Brands Rolex Cartier Breitling IWC Omega Audemars Piguet TAG Heuer Panerai">
         
-<?php $this->load->view('partials/footer'); ?>   
+<?php $this->load->view('global/footer'); ?>   

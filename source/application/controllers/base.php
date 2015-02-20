@@ -116,6 +116,15 @@ class Base_Controller extends CI_Controller {
 	}
 
 
+	/*
+	 * Gets the model
+	 * @return {object} 
+	*/
+	public function getModel() {
+		return $this->model;
+	}
+
+
 	// -------------------------------------------------
 	// The following code handles login and view access
 	// -------------------------------------------------
@@ -134,8 +143,8 @@ class Base_Controller extends CI_Controller {
 	/**
 	 * Starting point for the overall application.
 	 */
-	public function index() {
-		$this->load->view($this->viewName, $this->viewData);
+	public function index($viewData) {
+		$this->load->view($this->viewName, $viewData);
 	}
 
 
@@ -165,12 +174,11 @@ class Base_Controller extends CI_Controller {
 
 	/**
 	 * Gets all results from the model
+	 * @return {Object} results
 	 */
 	public function getAll() {
-		if ($this->model && $results = $this->model->getAll()) {
-			var_dump($results);	
-		} else {
-			echo 'Failed to Get Results';
-		}
+		$results = null;
+		if ($this->model && $results = $this->model->getAll()) {}
+		return $results;
 	}
 }

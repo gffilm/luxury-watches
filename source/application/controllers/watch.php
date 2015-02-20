@@ -13,7 +13,7 @@ class Watch extends Base_Controller {
 
     private $requiresLogin = false;
 
-    private $viewData = array('class' => 'Watch');
+    private $viewData = array('watches' => null);
 
     private $modelName = 'Watch_Model';
 
@@ -34,6 +34,33 @@ class Watch extends Base_Controller {
         foreach ($inheriters as $parameter) {
             $this->setInheritance($parameter, $this->$parameter);
         }
+    }
+
+    /**
+     * Get all original non-archived watches by brand
+     */
+    public function inventory() {
+        $watches = $this->getModel()->getNonArchived();
+        $brands = array();
+        $differentWatches = array();
+
+        // Look for only different brands
+        foreach ($watches as $watch) {
+            if (!in_array($watch->brand, $brands)) {
+                array_push($brands, $watch->brand);
+                array_push($differentWatches, $watch);
+            }
+        }
+
+        // Compares the orddr for the usort
+        function compare($a, $b) {
+            return strcmp($a->brand, $b->brand);
+        }
+        
+        usort($differentWatches, 'compare');
+
+        $this->viewData['watches'] = $differentWatches;
+        $this->index($this->viewData);
     }
 }
 

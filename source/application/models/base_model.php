@@ -110,11 +110,12 @@ class Base_Model extends CI_Model {
 
 	/**
 	 * Gets a entry by the name
-	 * @param {string} $id
+	 * @param {string} $key
+	 * @param {string} $value
 	 * @return {Array[Objects]}
 	 */
-	public function getByName($name) {
-		$recordSet = $this->db->get_where($this->tableName, array('name' => $name));
+	public function getByKeyValue($key, $value) {
+		$recordSet = $this->db->get_where($this->tableName, array($key => $value));
 
 		if (!$recordSet) {
 			return null;

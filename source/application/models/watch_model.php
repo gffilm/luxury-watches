@@ -47,6 +47,10 @@ class Watch_Model extends Base_Model {
         parent::__construct();
     }
 
+    public function getNonArchived() {
+        return $this->getByKeyValue('archived', 0);
+    }
+
     /**
      * Sets up values for inheritance
      * @param {Object} $data
