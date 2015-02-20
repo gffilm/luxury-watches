@@ -6,7 +6,7 @@ include_once(APPPATH . 'controllers/base' . EXT);
  * This class handles user access to the application
  * @overview
  */
-class UserAccess extends Base_Controller {
+class User extends Base_Controller {
 
 
     private $viewName = 'User';
@@ -18,7 +18,7 @@ class UserAccess extends Base_Controller {
     private $modelName = 'User_Model';
 
     /**
-     * Constructor for the UserAccess page
+     * Constructor for the User page
      */
     public function __construct() {
         parent::__construct();
@@ -33,13 +33,6 @@ class UserAccess extends Base_Controller {
         foreach ($inheriters as $parameter) {
             $this->setInheritance($parameter, $this->$parameter);
         }
-    }
-
-    /**
-    * Displays the view
-    */
-    public function index() {
-        $this->load->view($this->viewName, $this->viewData);
     }
 }
 

@@ -18,14 +18,54 @@ class Base_Model extends CI_Model {
 	*/
 	private $tableName = '';
 
+    /*
+     * The create table query
+     * @type {string}
+    */
+    private $createTableQuery = '';
+
+	/**
+	 * Sets the parametes for inherited values
+	 * @type {boolean}
+	 */
+	private static $inheriters = array('dataModel', 'tableName', 'createTableQuery');
+
 	/**
 	 * Constructor for the entries
 	 */
 	public function __construct() {
 		parent::__construct();
+
+		// Initializes inheritance for the extended controller
+		$this->inherit();
+
+		// Load the Database
 		$this->db = $this->load->database('appDb', true);
 	}
 
+
+	/**
+	 * Gets the inheriters needed for inheritance
+	 * @return {Object}
+	 */
+	public function getInheriters() {
+		return self::$inheriters;
+	}
+
+	/**
+	 * Initializes variables for inheritance
+	 */
+	public function inherit() {}
+
+
+	/**
+	 * Sets params from the extended class to this one
+	 * @param {string} $name of the parameter
+	 * @param {*} $value of the parameter
+	 */
+	public function setInheritance($name, $value) {
+		$this->$name = $value;
+	}
 
 	/**
 	 * Gets the data model
@@ -203,32 +243,19 @@ class Base_Model extends CI_Model {
 	}
 
 
-	/*
-	 * Gets the table query
-	*/
-	private function getTableQuery() {
-		return 'CREATE TABLE IF NOT EXISTS `' . $this->tableName . '` (
-                `id` varchar(128) NOT NULL,
-                `creationDate` date DEFAULT NULL,
-                `modificationDate` date DEFAULT NULL,
-                `createdBy` varchar(128) DEFAULT NULL,
-                `modifiedBy` varchar(128) DEFAULT NULL,
-                `firstName` varchar(30) NOT NULL,
-                `lastName` varchar(30) NOT NULL,
-                `password` varchar(128) DEFAULT NULL,
-                `email` varchar(30) NOT NULL,
-                `phone` varchar(50) DEFAULT NULL,
-                `active` varchar(50) DEFAULT NULL,
-                `role` varchar(50) DEFAULT NULL,
-                `misc` text
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8';
+	/**
+	 * Creates the table
+	 * @param {boolean} success?
+	 */
+	public function createTable() {
+		return $this->db->query($this->createTableQuery);
 	}
 
 	/**
-	 * Creates the table
+	 * Test
 	 */
-	public function createTable() {
-		$this->db->query($this->getTableQuery());
+	public function test() {
+		echo $this->tableName;
 	}
 }
 

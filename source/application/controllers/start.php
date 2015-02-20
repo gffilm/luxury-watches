@@ -10,11 +10,11 @@ class Start extends Base_Controller {
 
 	private $viewName = 'Start';
 
-	private $requiresLogin = true;
+	private $requiresLogin = false;
 
 	private $viewData = array('class' => 'Start');
 
-	private $modelName = 'Watch_Model';
+	private $modelName = '';
 
 	/**
 	 * Constructor for the Start page
@@ -32,12 +32,5 @@ class Start extends Base_Controller {
         foreach ($inheriters as $parameter) {
             $this->setInheritance($parameter, $this->$parameter);
         }
-    }
-
-    /**
-    * Displays the view
-    */
-    public function index() {
-        $this->load->view($this->viewName, $this->viewData);
     }
 }

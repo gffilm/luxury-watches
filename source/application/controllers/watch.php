@@ -35,12 +35,5 @@ class Watch extends Base_Controller {
             $this->setInheritance($parameter, $this->$parameter);
         }
     }
-
-    /**
-    * Displays the view
-    */
-    public function index() {
-        $this->load->view($this->viewName, $this->viewData);
-    }
 }
 

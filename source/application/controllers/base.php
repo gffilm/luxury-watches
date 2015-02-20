@@ -16,19 +16,13 @@ class Base_Controller extends CI_Controller {
 	 * The name of the view to load
 	 * @type {string}
 	 */
-	private $viewName = 'Base';
+	private $viewName = '';
 
 	/**
 	 * The name of the model to load
 	 * @type {string}
 	 */
-	private $modelName = 'Base_Model';
-
-	/*
-	 * The uservalidator
-	 * @type {object}
-	*/
-	private $userValidator = null;
+	private $modelName = '';
 
 
 	/**
@@ -39,10 +33,23 @@ class Base_Controller extends CI_Controller {
 
 
 	/**
-	 * Sets the functions and parametes for inherited values
+	 * Sets the parametes for inherited values
 	 * @type {boolean}
 	 */
-	private static $inheriters = array('viewName', 'modelName', 'requiresLogin');
+	private static $inheriters = array('viewData', 'viewName', 'modelName', 'requiresLogin');
+
+	/*
+	 * The uservalidator
+	 * @type {object}
+	*/
+	private $userValidator = null;
+
+	/**
+	 * The model
+	 * @type {Obbject}
+	 */
+	private $model = null;
+
 
 	/**
 	 * Constructor for the Base controller
@@ -63,7 +70,9 @@ class Base_Controller extends CI_Controller {
 		$this->login();
 
 		// Create an instance of the model
-		$this->model = new $this->modelName();
+		if ($this->modelName) {
+			$this->model = new $this->modelName();
+		}
 	}
 
 	/**
@@ -105,5 +114,27 @@ class Base_Controller extends CI_Controller {
 	 */
 	public function index() {
 		$this->load->view($this->viewName, $this->viewData);
+	}
+
+	/**
+	 * Creates the table for the given model
+	 */
+	public function createTable() {
+		if ($this->model && $this->model->createTable()) {
+			echo 'Created Table';	
+		} else {
+			echo 'Failed to Create Table';
+		}
+	}
+
+	/**
+	 * Gets all results from the model
+	 */
+	public function getAll() {
+		if ($this->model && $results = $this->model->getAll()) {
+			var_dump($results);	
+		} else {
+			echo 'Failed to Get Results';
+		}
 	}
 }
