@@ -34,5 +34,14 @@ class User extends Base_Controller {
             $this->setInheritance($parameter, $this->$parameter);
         }
     }
+
+    /**
+    * Determines if user is logged in
+    * @return {boolean}
+    */
+    private function isLoggedIn() {
+        $helper = $this->getuserHelper();
+        return $helper->isLoggedIn();
+    }
 }
 

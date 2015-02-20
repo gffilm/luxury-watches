@@ -236,10 +236,11 @@ class Base_Model extends CI_Model {
 
 	/**
 	 * Drops the table
+	 * @param {boolean} success?
 	 */
 	public function dropTable() {
 		$sql = 'DROP TABLE IF EXISTS `' . $this->tableName . '`;';
-		$this->db->query($sql);
+		return $this->db->query($sql);
 	}
 
 

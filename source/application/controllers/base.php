@@ -39,10 +39,10 @@ class Base_Controller extends CI_Controller {
 	private static $inheriters = array('viewData', 'viewName', 'modelName', 'requiresLogin');
 
 	/*
-	 * The uservalidator
+	 * The userHelper
 	 * @type {object}
 	*/
-	private $userValidator = null;
+	private $userHelper = null;
 
 	/**
 	 * The model
@@ -75,6 +75,16 @@ class Base_Controller extends CI_Controller {
 		}
 	}
 
+
+	// --------------------------------------
+	// The following code handles inheritance
+	// --------------------------------------
+
+	/**
+	 * Initializes variables for inheritance
+	 */
+	public function inherit() {}
+
 	/**
 	 * Gets the inheriters needed for inheritance
 	 * @return {Object}
@@ -82,12 +92,6 @@ class Base_Controller extends CI_Controller {
 	public function getInheriters() {
 		return self::$inheriters;
 	}
-
-	/**
-	 * Initializes variables for inheritance
-	 */
-	public function inherit() {}
-
 
 	/**
 	 * Sets params from the extended class to this one
@@ -98,13 +102,31 @@ class Base_Controller extends CI_Controller {
 		$this->$name = $value;
 	}
 
+
+	// ----------------------------------------------
+	// The following code handles getters and setters
+	// ----------------------------------------------
+
+	/*
+	 * Gets the user helper
+	 * @return {object} 
+	*/
+	public function getuserHelper() {
+		return $this->userHelper;
+	}
+
+
+	// -------------------------------------------------
+	// The following code handles login and view access
+	// -------------------------------------------------
+
+
 	/**
 	 * Ensure user is logged in or redirect to the login page if required
 	 */
 	public function login() {
-		$this->userValidator = new User_Helper($this->session->all_userdata());
-
-		if ($this->requiresLogin && !$this->userValidator->isLoggedIn()) {
+		$this->userHelper = new User_Helper($this->session->all_userdata());
+		if ($this->requiresLogin && !$this->userHelper->isLoggedIn()) {
 			redirect('useraccess?return=' . current_url());
 		}
 	}
@@ -116,6 +138,12 @@ class Base_Controller extends CI_Controller {
 		$this->load->view($this->viewName, $this->viewData);
 	}
 
+
+	// ----------------------------------------------
+	// The following code is for DB Crud Application
+	// ----------------------------------------------
+
+
 	/**
 	 * Creates the table for the given model
 	 */
@@ -124,6 +152,14 @@ class Base_Controller extends CI_Controller {
 			echo 'Created Table';	
 		} else {
 			echo 'Failed to Create Table';
+		}
+	}
+
+	public function dropTable() {
+		if ($this->model && $this->model->dropTable()) {
+			echo 'Dropped Table';	
+		} else {
+			echo 'Failed to Drop Table';
 		}
 	}
 
