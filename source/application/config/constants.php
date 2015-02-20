@@ -19,8 +19,22 @@ define('DIR_READ_MODE', 0755);
 define('DIR_WRITE_MODE', 0777);
 
 
+
+/*
+|--------------------------------------------------------------------------
+| Custom Definitions and Globals
+|--------------------------------------------------------------------------
+|
+*/
+
 // Global Variable to allow for debugging the system
 $GLOBALS['DEBUG'] = false;
+
+// HTML Helpers
+define('BR', '<br />');
+
+
+
 
 /*
 |--------------------------------------------------------------------------

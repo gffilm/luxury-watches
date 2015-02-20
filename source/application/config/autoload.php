@@ -49,6 +49,7 @@
 		$autoload['helper'] = array(
 			'date',
 			'url',
+			'resource',
 			'watch',
 			'user'
 		);
